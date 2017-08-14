@@ -1,0 +1,45 @@
+<?php
+
+?>
+
+
+    <!doctype HTML>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatabile" content="ie=edge">
+        <title>MOGWOD Login</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+        <link href="styles.css" rel="stylesheet">
+
+    </head>
+    <script>
+        function getWorkOut() {
+            var myhttp = new XMLHttpRequest();
+            myhttp.onreadystatechange = function() {
+                if (myhttp.readyState == 4 && myhttp.status == 200) {
+                    console.log(myhttp.responseText);
+
+                }
+            }
+
+            myhttp.open("GET", "wod.php", true);
+            myhttp.send();
+        }
+    </script>
+
+    <body>
+        <nav class="myNav"></nav>
+        <div class="container">YOU HAVE REDIRECTED SUCCESSFULLY</div>
+        <div class="footer"></div>
+
+
+    </body>
+
+
+    </html>
