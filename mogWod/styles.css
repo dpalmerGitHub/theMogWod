@@ -1,7 +1,35 @@
 body {
     padding: 0;
     margin: 0;
+    font-family: 'Roboto', sans-serif;
 }
+
+.myNav {
+    height: 60px;
+    color: #fff;
+    background-color: #dd2c00;
+    text-align: center;
+    font-weight: bold;
+    font-size: 24px;
+    padding: 15px 0 0 0;
+    border-bottom: solid thin #dd2c00;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+.submittedExercisesPara {
+    border-bottom: solid thin #ccc;
+}
+
+.glyphicon-remove {
+    color: #CC0000;
+}
+
+.btn[data-title="add"] {
+    margin-top: 15px;
+}
+
+.myNav p {}
 
 .main {
     position: absolute;
@@ -20,10 +48,14 @@ body {
     margin: 15px 0 0 0;
 }
 
-form {}
+#workoutName {
+    margin: 25px 0 0 0;
+}
 
-.icon {}
+thead tr th {
+    text-align: center;
+}
 
-.myNav {}
-
-.footer {}
+tbody tr td {
+    text-align: center;
+}

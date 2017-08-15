@@ -1,0 +1,150 @@
+<?php
+
+?>
+
+
+    <!doctype HTML>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatabile" content="ie=edge">
+        <title>MOGWOD Login</title>
+        <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+        <link href="styles.css" rel="stylesheet">
+
+    </head>
+    <script>
+        $(document).ready(function() {
+            var day = new Date();
+            var weekday = new Array(7);
+            weekday[0] = "Sunday";
+            weekday[1] = "Monday";
+            weekday[2] = "Tuesday";
+            weekday[3] = "Wednesday";
+            weekday[4] = "Thursday";
+            weekday[5] = "Friday";
+            weekday[6] = "Saturday";
+
+            var today = weekday[day.getDay()];
+            $("#showDay").html(today);
+        })
+
+        function getWorkOut() {
+            var myhttp = new XMLHttpRequest();
+            myhttp.onreadystatechange = function() {
+                if (myhttp.readyState == 4 && myhttp.status == 200) {
+                    var parsedAnswer = JSON.parse(myhttp.responseText);
+                    for (var i = 0; i < parsedAnswer.length; i++) {
+                        $("#row").append("<div class='row'><div class='col-md-4'><span>" + parsedAnswer[i].name + "</span></div><div class='col-md-4'><span id=" + parsedAnswer[i].reps + ">" + parsedAnswer[i].reps + "</span></div><div class='col-md-4'><a id=" + parsedAnswer[i].name + " href='#' onclick='removeExercise(this.id)'><span class='glyphicon glyphicon-remove'></span></a></div></div>");
+                    }
+                }
+            }
+            myhttp.open("GET", "wod.php", true);
+            myhttp.send();
+        }
+        getWorkOut();
+
+        function addExercise() {
+            var exerciseName = addForm.exercise.value;
+            var reps = addForm.reps.value;
+            var myhttp = new XMLHttpRequest();
+            myhttp.onreadystatechange = function() {
+                if (myhttp.readyState == 4 && myhttp.status == 200) {
+                    console.log(myhttp.responseText);
+
+                }
+            }
+
+            myhttp.open("POST", "adminWod.php?exercise=" + exerciseName + "&reps=" + reps, true);
+            myhttp.send();
+        }
+
+        function removeExercise(exerciseName) {
+            var confirmDelete = confirm("Are you sure you wish to delete this row?");
+            if (confirmDelete == false) {
+                return false;
+            }
+            var myhttp = new XMLHttpRequest();
+            myhttp.onreadystatechange = function() {
+                if (myhttp.readyState == 4 && myhttp.status == 200) {
+                    location.reload(true);
+                }
+            }
+
+            myhttp.open("POST", "deleteExercise.php?exercise=" + exerciseName, true);
+            myhttp.send();
+        }
+    </script>
+
+    <body>
+        <nav class="myNav">
+            <p>The W.O.D</p>
+        </nav>
+        <div class="container-fluid">
+            <div class="col-md-6 col-md-offset-3">
+                <h1 id="showDay" class="text-center text-uppercase"></h1>
+                <h3 class="text-center text-uppercase">Mog Wod || Strength</h3>
+                <h4 class="text-center">Rounds: </h4>
+            </div>
+        </div>
+
+        <div class="container withMargin">
+            <div class="row">
+                <div class="col-md-6">
+                    <form name="addForm">
+                        <label for="exercise">Exercise Name:</label>
+                        <input class="form-control" type="text" name="exercise">
+                        <label for="reps">Reps:</label>
+                        <input class="form-control" type="text" name="reps">
+                        <button type="submit" onclick="addExercise()" class="btn btn-block btn-danger" data-title="add">Add</button>
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <p id="workoutName "></p>
+                    <div class="text-justify">
+                        <div id="row" class="container-fluid">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container withMargin">
+            <div class="row">
+                <div class="col-md-6">
+                    <form name="addRest">
+                        <label for="duration">Rest Duration:</label>
+                        <select class="form-control" type="text" name="duration">
+                            <option>10 seconds</option>
+                            <option>30 seconds</option>
+                            <option>45 seconds</option>
+                            <option>60 seconds</option>
+                            <option>Other</option>
+                        </select>
+                        <label for="interval">Rest Interval:</label>
+                        <select class="form-control" type="text" name="interval">
+                            <option>After each round</option>
+                            <option>After each set</option>
+                            <option>After all sets are completed</option>
+                        </select>
+                        <button type="submit" onclick="addRest()" class="btn btn-block btn-primary" data-title="add">Add</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="footer "></div>
+
+
+    </body>
+
+
+    </html>

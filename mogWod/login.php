@@ -12,7 +12,7 @@ $result=$con->query("SELECT * FROM login  WHERE username = '$name' AND password 
 
 
 while($extract=mysqli_fetch_array($result)){
-    echo $extract['username'].":".$extract['password'];
+    echo "Success";
 }
 
 
